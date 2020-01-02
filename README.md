@@ -1,6 +1,6 @@
 # Controle-Meteo
 
-pplication de contrôle de météo pour permettre à l’utilisateur de connaitre sa météo à tout moment donné en fonction d’une position géographique préconfigurée.
+Application de contrôle de météo pour permettre à l’utilisateur de connaitre sa météo à tout moment donné en fonction d’une position géographique préconfigurée.
 
 
 # Outils
