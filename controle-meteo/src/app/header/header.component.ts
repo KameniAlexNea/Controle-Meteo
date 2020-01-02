@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { setTheme } from 'ngx-bootstrap/utils/public_api';
 
 @Component({
   selector: 'app-header',
