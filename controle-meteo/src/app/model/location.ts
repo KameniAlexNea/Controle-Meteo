@@ -5,7 +5,7 @@ export class Location {
     private _city_name : string = ''; 
     private _longitude : number  = 0;
     private _latitude : number = 0;
-
+    
     set id(id : string){
         this._id = id;
     }

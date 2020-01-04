@@ -1,1 +1,61 @@
-<p>weather works!</p>
+<div class="col-lg-12">
+    <span> Les coordonées recupérées sont : {{malocation.latitude}} et {{malocation.longitude}}.</span> 
+    <p> Meteo courrantes : 
+        La température est : {{meteo.temperature}}°c.
+        L'humidité est : {{meteo.humidity}}%.
+        La pluviométrie est : {{meteo.clouds}}%.
+    </p>
+</div>
+
+<div class="row prévisions météo">
+    <div class="col-lg-12">
+        <span> Meteo prévisionnelles de par jour: </span>  
+        <table>
+            <caption>
+                Présentation de la météo par jour
+            </caption>
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>temperature(°c)</th>
+                    <th>Humidité(%)</th>
+                    <th>Précipitations(%)</th>
+                </tr>
+            </thead>
+            <tbody id="contenu1">
+                <tr *ngFor="let element of daily">
+                    <td>{{element.jour}}</td>
+                    <td>{{element.temperature}}</td>
+                    <td>{{element.humidity}}</td>
+                    <td>{{element.clouds}}</td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+    <div class="col-lg-12">
+        <span> Meteo prévisionnelles  par heure: </span>  
+        <table>
+            <caption>
+                Présentation de la météo par heure
+            </caption>
+            <thead>
+                <tr>
+                    <th>Heure</th>
+                    <th>temperature(°c)</th>
+                    <th>Humidité(%)</th>
+                    <th>Précipitations(%)</th>
+                </tr>
+            </thead>
+            <tbody id="contenu2">
+                <tr *ngFor="let element of hourly">
+                    <td>{{element.heure}}</td>
+                    <td>{{element.temperature}}</td>
+                    <td>{{element.humidity}}</td>
+                    <td>{{element.clouds}}</td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+</div>

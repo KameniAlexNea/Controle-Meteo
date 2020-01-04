@@ -1,1 +1,18 @@
-<p>carte works!</p>
+<div class="row">
+    <div style="text-align:center">
+        <h1>
+            Bienvenue sur MyMap
+        </h1>
+    </div>
+    <div class="col-lg-12" id="map">
+    
+    </div>
+    <span id="coord">
+        on a comme latitude {{location.latitude}} et comme longitude {{location.longitude}}
+    </span>
+    <div id="weather">
+        <app-weather [malocation]="location"></app-weather>
+        
+    </div>
+</div>
+
