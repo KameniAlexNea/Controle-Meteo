@@ -5,7 +5,7 @@ Application de contrôle de météo pour permettre à l’utilisateur de connait
 
 # Outils
 
-**Angular** : Framework de developpement (v8).
+**Angular** : Framework de developpement Web (v8).
 
 **OpenWeather** : utilisée pour obtenir les informations de météo gratuitement.
 
