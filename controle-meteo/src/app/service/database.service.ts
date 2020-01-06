@@ -15,6 +15,7 @@ export class user{
   sex : string;
   birthday : string;
 }
+guz
 
 var current_user= new user();
 
