@@ -24,7 +24,37 @@ import { SortableModule } from 'ngx-bootstrap/sortable';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxIndexedDBModule } from 'ngx-indexed-db';
+
+const dbConfig  = {
+  name: 'MyDb',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'User',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'username', keypath: 'username', options: { unique: true } },
+      { name: 'password', keypath: 'password', options: { unique: false } },
+      { name: 'name', keypath: 'name', options: { unique: false } },
+      { name: 'surname', keypath: 'surname', options: { unique: false } },
+      { name: 'picture', keypath: 'picture', options: { unique: false } },
+      { name: 'sex', keypath: 'sex', options: { unique: false } },
+      { name: 'birthday', keypath: 'birthday', options: { unique: false } }
+    ]
+  },
+  {
+    store: 'Location',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'country_name', keypath: 'country_name', options: { unique: false } },
+      { name: 'city_name', keypath: 'city_name', options: { unique: false } },
+      { name: 'longitude', keypath: 'longitude', options: { unique: false } },
+      { name: 'latitude', keypath: 'latitude', options: { unique: false } }
+    ]
+  }
+]
+};
 
 @NgModule({
    declarations: [
@@ -54,7 +84,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
       TabsModule.forRoot(),
       TimepickerModule.forRoot(),
       TypeaheadModule.forRoot(),
-      FontAwesomeModule
+      FontAwesomeModule,
+      NgxIndexedDBModule.forRoot(dbConfig)
    ],
    providers: [],
    bootstrap: [AppComponent],
