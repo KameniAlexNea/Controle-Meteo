@@ -1,24 +1,28 @@
 <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
     <div class="col-md-8">
-        <div class="card">
+        <div class="card" style="border-radius: 10px;">
             <div class="card-body">
-                <h5 class="card-title" style="font-size: 2.5rem;">{{position}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{actualDate}}</h6>
-                <h6 class="card-subtitle mb-2 text-muted">{{stateDay}}</h6>
+                <div class="container-fluid">
+                    <h5 class="card-title" style="font-size: 2.5rem;">{{position}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{actualDate}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{stateDay}}</h6>
+                </div>
                 <div class="card-text">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-1">
                                 </div>
-                                <img src="assets/img/temperature.ico" />
+                                <img src="{{statusTemp}}" />
                                 <h2 style="font-size: 50px;"> {{temperature}}</h2>
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link" (click)="changeToCUnit()" href="#">°C</a>
+                                        <a class="nav-link active" data-toggle="pill" (click)="changeToCUnit()" href="#"
+                                            role="tab" aria-controls="pills-c" aria-selected="true">°C</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" (click)="changeToFUnit()" href="#">°F</a>
+                                        <a class="nav-link" data-toggle="pill" (click)="changeToFUnit()" href="#"
+                                            role="tab" aria-controls="pills-f" aria-selected="false">°F</a>
                                     </li>
                                 </ul>
                             </div>
@@ -45,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-top: 2rem;">
                         <div class="col">
                             <ul class="nav nav-tabs" id="myTab1" role="tablist">
                                 <li class="nav-item">
@@ -57,162 +61,162 @@
                                         aria-controls="jour" aria-selected="false"> Jour</a>
                                 </li>
                             </ul>
-                            <div class="tab-content" id="myTabContent1">
+                            <div class="tab-content" id="myTabContent1" style="margin-top: 2rem; margin-bottom: 2rem;">
                                 <div class="tab-pane fade show active" id="heure" role="tabpanel"
                                     aria-labelledby="temp-tab">
-                                    <div class="col-sm-12">
-                                        <ul class="nav nav-tabs" id="myTab1" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="temp-tab" data-toggle="tab" href="#temp"
-                                                    role="tab" aria-controls="temp" aria-selected="true">
-                                                    Temperature</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="precip-tab" data-toggle="tab" href="#precip"
-                                                    role="tab" aria-controls="precip" aria-selected="false">
-                                                    Precipitation</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="vent-tab" data-toggle="tab" href="#vent"
-                                                    role="tab" aria-controls="vent" aria-selected="false"> Vent</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="temp" role="tabpanel"
-                                                aria-labelledby="temp-tab">
-                                                <table class="table table-dark">
-                                                    <tr>
-                                                        <td *ngFor="let tmp of horaire">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td *ngFor="let tmp of temperatureArray">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                </table>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                                aria-orientation="vertical">
+                                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
+                                                    href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+                                                    aria-selected="true">Temperature</a>
+                                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill"
+                                                    href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+                                                    aria-selected="false">Precipitation</a>
+                                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
+                                                    href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
+                                                    aria-selected="false">Vent</a>
                                             </div>
-                                            <div class="tab-pane fade" id="precip" role="tabpanel"
-                                                aria-labelledby="precip-tab">
-                                                <table class="table table-dark">
-                                                    <tr>
-                                                        <td *ngFor="let tmp of horaire">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td *ngFor="let tmp of humiditeArray">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade" id="vent" role="tabpanel"
-                                                aria-labelledby="vent-tab">
-                                                <table class="table table-dark">
-                                                    <tr>
-                                                        <td *ngFor="let tmp of horaire">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td *ngFor="let tmp of cloudsArray">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                </table>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="tab-content" id="v-pills-tabContent">
+                                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                                                    aria-labelledby="v-pills-home-tab">
+                                                    <table class="table table-dark">
+                                                        <tr>
+                                                            <td *ngFor="let tmp of horaire">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td *ngFor="let tmp of temperatureArray">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                                                    aria-labelledby="v-pills-profile-tab">
+                                                    <table class="table table-dark">
+                                                        <tr>
+                                                            <td *ngFor="let tmp of horaire">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td *ngFor="let tmp of temperatureArray">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                                                    aria-labelledby="v-pills-messages-tab">
+                                                    <table class="table table-dark">
+                                                        <tr>
+                                                            <td *ngFor="let tmp of horaire">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td *ngFor="let tmp of temperatureArray">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade show" id="jour" role="tabpanel" aria-labelledby="temp-tab">
-                                    <div class="col-sm-12">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="temp-tab" data-toggle="tab" href="#temp"
-                                                    role="tab" aria-controls="temp" aria-selected="true">
-                                                    Temperature</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="precip-tab" data-toggle="tab" href="#precip"
-                                                    role="tab" aria-controls="precip" aria-selected="false">
-                                                    Precipitation</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="vent-tab" data-toggle="tab" href="#vent"
-                                                    role="tab" aria-controls="vent" aria-selected="false"> Vent</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade show active" id="temp" role="tabpanel"
-                                                aria-labelledby="temp-tab">
-                                                <table class="table table-dark">
-                                                    <tr>
-                                                        <td *ngFor="let tmp of horaire">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td *ngFor="let tmp of temperatureArray">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                </table>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                                aria-orientation="vertical">
+                                                <a class="nav-link active" id="v-pills-home1-tab" data-toggle="pill"
+                                                    href="#v-pills-home1" role="tab" aria-controls="v-pills-home1"
+                                                    aria-selected="true">Temperature</a>
+                                                <a class="nav-link" id="v-pills-profile1-tab" data-toggle="pill"
+                                                    href="#v-pills-profile1" role="tab" aria-controls="v-pills-profile1"
+                                                    aria-selected="false">Precipitation</a>
+                                                <a class="nav-link" id="v-pills-messages1-tab" data-toggle="pill"
+                                                    href="#v-pills-messages1" role="tab"
+                                                    aria-controls="v-pills-messages1" aria-selected="false">Vent</a>
                                             </div>
-                                            <div class="tab-pane fade" id="precip" role="tabpanel"
-                                                aria-labelledby="precip-tab">
-                                                <table class="table table-dark">
-                                                    <tr>
-                                                        <td *ngFor="let tmp of horaire">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td *ngFor="let tmp of humiditeArray">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade" id="vent" role="tabpanel"
-                                                aria-labelledby="vent-tab">
-                                                <table class="table table-dark">
-                                                    <tr>
-                                                        <td *ngFor="let tmp of horaire">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td *ngFor="let tmp of cloudsArray">
-                                                    <tr>
-                                                        {{tmp}}
-                                                    </tr>
-                                                    </td>
-                                                    </tr>
-                                                </table>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="tab-content" id="v-pills-tabContent">
+                                                <div class="tab-pane fade show active" id="v-pills-home1"
+                                                    role="tabpanel" aria-labelledby="v-pills-home1-tab">
+                                                    <table class="table table-dark">
+                                                        <tr>
+                                                            <td *ngFor="let tmp of horaire">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td *ngFor="let tmp of temperatureArray">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="v-pills-profile1" role="tabpanel"
+                                                    aria-labelledby="v-pills-profile1-tab">
+                                                    <table class="table table-dark">
+                                                        <tr>
+                                                            <td *ngFor="let tmp of horaire">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td *ngFor="let tmp of temperatureArray">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="v-pills-messages1" role="tabpanel"
+                                                    aria-labelledby="v-pills-messages1-tab">
+                                                    <table class="table table-dark">
+                                                        <tr>
+                                                            <td *ngFor="let tmp of horaire">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td *ngFor="let tmp of temperatureArray">
+                                                        <tr>
+                                                            {{tmp}}
+                                                        </tr>
+                                                        </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -262,6 +266,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Ville</th>
                     <th scope="col">Choix</th>
+                    <th scope="col">Supprimer</th>
                 </tr>
             </thead>
             <tbody>
@@ -272,6 +277,12 @@
                         <div class="form-check">
                             <input name="villeCheck" class="form-check-input" value="{{i}}" id="{{i}}" type="radio"
                                 (change)="choixVille($event)" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input name="villeCheck" class="form-check-input" value="{{i}}" id="{{i}}" type="radio"
+                                (change)="supprimerVille($event)" />
                         </div>
                     </td>
                 </tr>

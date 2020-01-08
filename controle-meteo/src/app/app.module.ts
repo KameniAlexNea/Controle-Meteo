@@ -56,7 +56,7 @@ import { LoginComponent } from './login/login.component'
       TabsModule.forRoot(),
       TimepickerModule.forRoot(),
       TypeaheadModule.forRoot(),
-      FontAwesomeModule
+      FontAwesomeModule,
    ],
    providers: [],
    bootstrap: [AppComponent],

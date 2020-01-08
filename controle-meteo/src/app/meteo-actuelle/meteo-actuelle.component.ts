@@ -11,9 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class MeteoActuelleComponent implements OnInit {
 
    temperature: number = 25;
-   coulds: string = "0";
-   humidity: string = "0";
-   preasure: string = "0";
+   coulds: string = "15%";
+   humidity: string = "2%";
+   preasure: string = "3%";
    position: string = "Ngoa-Ekélé, Yaoundé"
    stateDay: string = "Brume"
    tempUnit: boolean = true
@@ -25,6 +25,9 @@ export class MeteoActuelleComponent implements OnInit {
    humiditeArray: Array<String> = new Array<String>('Humidite', '15', '20', '17', '18')
    cloudsArray: Array<String> = new Array<String>('Clouds', '15', '20', '17', '18')
    lieu: any
+   statusTemp:String="assets/img/temperature.ico"
+
+   
 
    constructor() {
       this.actualDate = new Date().toString() //toJSON().slice(0, 10).replace(/-/g, '/');
@@ -48,6 +51,12 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    choixVille(event): void {
+      var target = event.target || event.srcElement || event.currentTarget;
+      this.selectedCity = parseInt(target.id)
+      console.log(this.selectedCity)
+   }
+
+   supprimerVille(event): void {
       var target = event.target || event.srcElement || event.currentTarget;
       this.selectedCity = parseInt(target.id)
       console.log(this.selectedCity)
