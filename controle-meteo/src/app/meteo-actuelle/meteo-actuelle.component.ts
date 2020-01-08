@@ -24,6 +24,7 @@ export class MeteoActuelleComponent implements OnInit {
    temperatureArray: Array<String> = new Array<String>('Temperature', '15', '20', '17', '18')
    humiditeArray: Array<String> = new Array<String>('Humidite', '15', '20', '17', '18')
    cloudsArray: Array<String> = new Array<String>('Clouds', '15', '20', '17', '18')
+   lieu: any
 
    constructor() {
       this.actualDate = new Date().toString() //toJSON().slice(0, 10).replace(/-/g, '/');
@@ -50,6 +51,12 @@ export class MeteoActuelleComponent implements OnInit {
       var target = event.target || event.srcElement || event.currentTarget;
       this.selectedCity = parseInt(target.id)
       console.log(this.selectedCity)
+   }
+
+   public choixPosition():void {
+      if (!this.cities.includes("South")) {
+         this.cities.push("South");
+      }
    }
 
 }

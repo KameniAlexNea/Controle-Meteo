@@ -24,7 +24,8 @@ import { SortableModule } from 'ngx-bootstrap/sortable';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component'
 
 @NgModule({
    declarations: [
@@ -32,6 +33,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
       HeaderComponent,
       FooterComponent,
       MeteoActuelleComponent,
+      LoginComponent,
    ],
    imports: [
       BsDropdownModule.forRoot(),
