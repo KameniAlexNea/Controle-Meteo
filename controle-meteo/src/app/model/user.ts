@@ -1,12 +1,14 @@
 export class User {
-    private _email : string;
-    private _password : string;
-    private _name : string; 
-    private _surname : string;
-    private _picture : string;
-    private _sex : string;
-    private _birthday : string;
 
+    constructor(
+        public _email : string,
+        public _password : string,
+        public _name : string,
+        public _surname : string,
+        public _picture : string,
+        public _sex : string,
+        public _birthday : string
+    ){}
     get email() {
         return this._email;
     }

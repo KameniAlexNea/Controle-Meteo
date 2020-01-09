@@ -34,6 +34,7 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { DatabaseUserService } from './database-user.service';
 import { DatabaseLocationService } from './database-location.service';
 import { DatabaseIdService } from './database-id.service';
+import { RegisterComponent } from './register/register.component';
 
 // const
 const dbConfig  = {
@@ -84,6 +85,7 @@ const dbConfig  = {
       MapComponent,
       WeatherComponent,
       DisplayWeatherComponent,
+      RegisterComponent,
    ],
    imports: [
       BsDropdownModule.forRoot(),
