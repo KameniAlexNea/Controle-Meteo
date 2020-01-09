@@ -1,9 +1,15 @@
-<div class="col-lg-12" id="map">
-    
+<div class="row">
+    <div class="row" id="map">
+
+    </div>
+    <div class="row">
+        <span id="coord">
+            <div class="row">
+                <span class="col">Latitude: {{location.latitude}}</span>
+                <span class="col">Longitude: {{location.longitude}}</span>
+                <span class="col">Pays: {{location.country}}</span>
+                <span class="col">Ville: {{location.city}}</span>
+            </div>
+        </span>
+    </div>
 </div>
-<span id="coord">
-    Latitude: {{location.latitude}} 
-    Longitude {{location.longitude}} 
-    Pays {{location.country}}
-    Ville {{location.city}}
-</span>

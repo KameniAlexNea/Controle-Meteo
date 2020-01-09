@@ -8,6 +8,9 @@ import { Weather } from '../model/weather/weather';
 })
 export class DisplayWeatherComponent implements OnInit {
 
+	/**
+	 * Ce composant permet d'afficher un weather à l'écran 
+	 */
 	constructor() { }
 
 	@Input()
@@ -23,11 +26,11 @@ export class DisplayWeatherComponent implements OnInit {
 	}
 
 	setImageByTemp() {
-		if (this.weather.temperature >= 30) {
+		if (this.weather.temperature >= 35) {
 			this.imgBg = "icon-2.svg"
-		} else if (this.weather.temperature >= 25) {
+		} else if (this.weather.temperature >= 30) {
 			this.imgBg = "icon-3.svg"
-		} else if (this.weather.temperature >= 20) {
+		} else if (this.weather.temperature >= 25) {
 			this.imgBg = "icon-5.svg"
 		} else if (this.weather.temperature >= 20) {
 			this.imgBg = "icon-6.svg"
