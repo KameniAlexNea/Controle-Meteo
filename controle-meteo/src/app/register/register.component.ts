@@ -1,18 +1,17 @@
-/*import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { User } from 'src/app/modeles/user.model';
-import { UserService } from 'src/app/service/database.service';
+import { User } from '../model/user';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class RegisterComponent implements OnInit {
+
+  constructor() { }
 
   signUpForm:FormGroup;
-  constructor(private userService:UserService) { }
-
   ngOnInit() {
     this.initForm();
   }
@@ -39,7 +38,7 @@ export class SignupComponent implements OnInit {
     formValue['sex'],
     formValue['birthday']);
     console.log(newUser);
-    this.userService.addUser(newUser);
+    /*this.userService.addUser(newUser);
     this.userService.saveUser(newUser);
     this.userService.save_user(formValue['email'],
     formValue['password'],
@@ -47,8 +46,6 @@ export class SignupComponent implements OnInit {
     formValue['surname'],
     formValue['picture'],
     formValue['sex'],
-    formValue['birthday'])
+    formValue['birthday'])*/
   }
-  
 }
-*/
