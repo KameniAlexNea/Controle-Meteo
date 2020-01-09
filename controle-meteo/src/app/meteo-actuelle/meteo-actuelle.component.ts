@@ -57,6 +57,7 @@ export class MeteoActuelleComponent implements OnInit {
       this.obtenirMeteo(this.location)
       setTimeout(()=>{
          this.temperature = this.meteo.temperature;
+         this.temperature.toFixed(2);
          this.setImageByTemp()
       }, 3000)
       setInterval(()=> {
@@ -120,11 +121,11 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    setImageByTemp() {
-      if (this.meteo.temperature >= 30) {
+      if (this.meteo.temperature >= 35) {
          this.imgBg = "icon-2.svg"
-      } else if (this.meteo.temperature >= 25) {
+      } else if (this.meteo.temperature >= 30) {
          this.imgBg = "icon-3.svg"
-      } else if (this.meteo.temperature >= 20) {
+      } else if (this.meteo.temperature >= 25) {
          this.imgBg = "icon-5.svg"
       } else if (this.meteo.temperature >= 20) {
          this.imgBg = "icon-6.svg"
