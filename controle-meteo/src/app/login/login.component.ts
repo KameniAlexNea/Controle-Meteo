@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { DatabaseUserService } from '../database-user.service';
+
 
 @Component({
   selector: 'app-login',
