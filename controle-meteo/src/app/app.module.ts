@@ -30,6 +30,47 @@ import { MapComponent } from './map/map.component';
 import { WeatherComponent } from './weather/weather.component';
 import { DisplayWeatherComponent } from './display-weather/display-weather.component'
 
+import { NgxIndexedDBModule } from 'ngx-indexed-db';
+import { UserService, User } from './service/database/database.service';
+
+const dbConfig  = {
+  name: 'MyDb',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'User',
+    storeConfig: { keyPath: 'email', autoIncrement: false },
+    storeSchema: [
+      { name: 'email', keypath: 'email', options: { unique: true } },
+      { name: 'password', keypath: 'password', options: { unique: false } },
+      { name: 'name', keypath: 'name', options: { unique: false } },
+      { name: 'surname', keypath: 'surname', options: { unique: false } },
+      { name: 'picture', keypath: 'picture', options: { unique: false } },
+      { name: 'sex', keypath: 'sex', options: { unique: false } },
+      { name: 'birthday', keypath: 'birthday', options: { unique: false } }
+    ]
+  },
+  {
+    store: 'Location',
+    storeConfig: { keyPath: 'id', autoIncrement: false },
+    storeSchema: [
+      { name: 'id', keypath: 'id', options: { unique: true } },
+      { name: 'country_name', keypath: 'country_name', options: { unique: false } },
+      { name: 'city_name', keypath: 'city_name', options: { unique: false } },
+      { name: 'longitude', keypath: 'longitude', options: { unique: false } },
+      { name: 'latitude', keypath: 'latitude', options: { unique: false } }
+    ]
+  },
+  {
+    store: 'Id',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'id', keypath: 'id', options: { unique: true } },
+      { name: 'id_location', keypath: 'id_location', options: { unique: true } }
+    ]
+  }
+]
+};
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -63,8 +104,12 @@ import { DisplayWeatherComponent } from './display-weather/display-weather.compo
       TimepickerModule.forRoot(),
       TypeaheadModule.forRoot(),
       FontAwesomeModule,
+      NgxIndexedDBModule.forRoot(dbConfig),
    ],
-   providers: [],
+   providers: [
+      UserService,
+      User
+   ],
    bootstrap: [AppComponent],
    exports: [BsDropdownModule, TooltipModule, ModalModule, CollapseModule, TabsModule, ButtonsModule, TypeaheadModule]
 })
