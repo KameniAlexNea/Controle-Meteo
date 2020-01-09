@@ -17,12 +17,13 @@
                                 <h2 style="font-size: 50px;"> {{temperature}}</h2>
                                 <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="pill" (click)="changeToCUnit()" href="#"
-                                            role="tab" aria-controls="pills-c" aria-selected="true">°C</a>
+                                        <span> </span><a class="nav-link active" data-toggle="pill"
+                                            (click)="changeToCUnit()" href="#" role="tab" aria-controls="pills-c"
+                                            aria-selected="true">°C</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="pill" (click)="changeToFUnit()" href="#"
-                                            role="tab" aria-controls="pills-f" aria-selected="false">°F</a>
+                                        <span> </span><a class="nav-link" data-toggle="pill" (click)="changeToFUnit()"
+                                            href="#" role="tab" aria-controls="pills-f" aria-selected="false">°F</a>
                                     </li>
                                 </ul>
                             </div>
@@ -101,7 +102,9 @@
                             </div>
                             <!-- Modal body -->
                             <div class="modal-body">
-                                La carte s'affiche ici
+                                <div class="row">
+                                    <app-map [location]="choiceLoc"></app-map>
+                                </div>
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
@@ -123,7 +126,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let city of cities; let i = index" [attr.data-index]="i">
+                <tr *ngFor="let city of locations; let i = index" [attr.data-index]="i">
                     <th scope="row">{{ i }}</th>
                     <td>{{ city }}</td>
                     <td>
@@ -134,13 +137,12 @@
                     </td>
                     <td>
                         <div class="form-check">
-                            <input name="villeCheck" class="form-check-input" value="{{i}}" id="{{i}}" type="radio"
-                                (change)="supprimerVille($event)" />
+                            <button class="btn btn-outline-danger" id="{{i}}"
+                                (click)="supprimerVille($event)">retirer</button>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-
     </div>
 </div>

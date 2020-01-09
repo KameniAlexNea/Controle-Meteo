@@ -9,17 +9,17 @@ import { Location } from '../model/location/location'
    styleUrls: ['./meteo-actuelle.component.scss']
 })
 
-// './../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
-
 export class MeteoActuelleComponent implements OnInit {
 
    temperature: Number = 25; // Afficher la temperature en haut, facilite les modif
    stateDay: string = "Brume" // Description
    tempUnit: boolean = true // true pour °C et false pour °F
    actualDate: string // La date actuelle
-   selectedCity: Number = 0 // Id de la ville selectionnée
-   imgBg: String // Image à côté de la température
-   locations:Array<Location>
+   selectedCity: number = 0 // Id de la ville selectionnée
+   imgBg: String; // Image à côté de la température
+   locations: Array<Location>
+   choiceLoc: Location;
+   location: Location
 
    changeToCUnit(): void {
       if (!this.tempUnit) {
@@ -36,33 +36,29 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    choixVille(event): void {
-      var target = event.target || event.srcElement || event.currentTarget;
+      var target = event.target || event.srcElement || event.currentTarget
       this.selectedCity = parseInt(target.id)
-      console.log(this.selectedCity)
+      this.location = this.locations[this.selectedCity]
+      this.obtenirMeteo(this.location)
    }
 
    supprimerVille(event): void {
-      var target = event.target || event.srcElement || event.currentTarget;
+      var target = event.target || event.srcElement || event.currentTarget
       this.selectedCity = parseInt(target.id)
       console.log(this.selectedCity)
+      this.locations.splice(this.selectedCity, 1)
    }
 
    public choixPosition(): void {
-      
+      this.locations.push(this.choiceLoc);
    }
-
-   location: Location = new Location();
 
    ngOnInit() {
       this.obtenirMeteo(this.location)
-      setTimeout(()=>{
-         this.temperature = this.meteo.temperature;
-         this.temperature.toFixed(2);
-         this.setImageByTemp()
-      }, 3000)
-      setInterval(()=> {
+
+      setInterval(() => {
          this.obtenirMeteo(this.location);
-      }, 15*60*1000)
+      }, 15 * 60 * 1000)
    }
 
 
@@ -75,13 +71,28 @@ export class MeteoActuelleComponent implements OnInit {
    weath: WeatherService;
 
    constructor(weather: WeatherService) {
+
+
+      this.locations = new Array<Location>();
+      /**
+       * Ma position c'est la position par défaut
+       */
+      this.location = new Location();
       this.location.latitude = 3.968;
       this.location.longitude = 11.5213;
       this.location.city = "Yaounde";
       this.location.country = "CM";
+      /**
+       * Choix de ville est stocké ici
+       */
+      this.choiceLoc = new Location();
+      this.choiceLoc.latitude = 3.968;
+      this.choiceLoc.longitude = 11.5213;
+      this.choiceLoc.city = "Yaounde";
+      this.choiceLoc.country = "CM";
+
       this.weath = weather;
-      //this.obtenirMeteo();
-      this.actualDate = new Date().toString() //toJSON().slice(0, 10).replace(/-/g, '/');
+      this.actualDate = new Date().toString()
    }
 
    ngOnChanges(changes: SimpleChanges) {
@@ -93,31 +104,19 @@ export class MeteoActuelleComponent implements OnInit {
       }
    }
 
-
-   /*  @Output()
-   prevision = new EventEmitter();*/
-
-   /*updateValue() {   
-     var location = this.location;
-     //console.log("test "+lat)
-     this.prevision.emit(this.);
-   }*/
-
    obtenirMeteo(location) {
-      //this.location = new Location();
-      /*var city = this.location.city
-      var country = this.location.country*/
-      //this.meteo=weather.getWeatherByName(city, country);
       this.meteo = this.weath.getWeatherByLocation(location);
-      this.temperature = this.meteo.temperature;
-      if (!this.tempUnit) {
-         this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
-      }
-      //this.hourly=weather.getForecastHourlyByName(city, country);
+
       this.hourly = this.weath.getForecastHourlyByLocation(location);
-      //this.daily=weather.getForecastDailyByName(city, country);
       this.daily = this.weath.getForecastDailyByLocation(location);
       this.setImageByTemp();
+      setTimeout(() => {
+         this.temperature = parseFloat(this.meteo.temperature.toFixed(2))
+         if (!this.tempUnit) {
+            this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
+         }
+         this.setImageByTemp()
+      }, 3000);
    }
 
    setImageByTemp() {
