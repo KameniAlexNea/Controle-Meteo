@@ -9,7 +9,7 @@ import { setTheme } from 'ngx-bootstrap/utils';
 
 export class AppComponent {
    title = 'controle-meteo';
-
+   
    constructor() {
       setTheme('bs4'); // or 'bs3'
    }

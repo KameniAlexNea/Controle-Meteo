@@ -25,7 +25,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { MapComponent } from './map/map.component';
+import { WeatherComponent } from './weather/weather.component';
+import { DisplayWeatherComponent } from './display-weather/display-weather.component'
 
 @NgModule({
    declarations: [
@@ -34,6 +37,9 @@ import { LoginComponent } from './login/login.component'
       FooterComponent,
       MeteoActuelleComponent,
       LoginComponent,
+      MapComponent,
+      WeatherComponent,
+      DisplayWeatherComponent,
    ],
    imports: [
       BsDropdownModule.forRoot(),
