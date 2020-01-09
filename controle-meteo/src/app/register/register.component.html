@@ -1,7 +1,7 @@
 <div class="container">
     <div class="col-sn-8 col-sn-offset-2">
         <h2>creer un compte</h2>
-        <form [formGroup]="signUpForm" (ngSubmit)="onSubmitForm()">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmitForm()">
             <div class="form-group" >
                 <label for="picture">profil</label>
                 <input type="file" class="form-control" id="picture" accept="image/*" formControlName="picture">
@@ -38,7 +38,7 @@
                 <label for="birthday">Date de naissance</label>
                 <input type="date" class="form-control" id="birthday" formControlName="birthday">
             </div>
-            <button class="btn btn-primary" type="submit" [disabled]="signUpForm.invalid">Creer mon compte</button>
+            <button class="btn btn-primary" type="submit" [disabled]="registerForm.invalid">Creer mon compte</button>
         </form>
     </div>
 </div>

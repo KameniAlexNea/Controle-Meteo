@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { User } from '../model/user';
+import { DatabaseUserService } from '../database-user.service';
 
 @Component({
   selector: 'app-register',
@@ -9,14 +10,14 @@ import { User } from '../model/user';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService:DatabaseUserService) { }
 
-  signUpForm:FormGroup;
+  registerForm:FormGroup;
   ngOnInit() {
     this.initForm();
   }
   initForm(){
-    this.signUpForm=new FormGroup({
+    this.registerForm=new FormGroup({
     email : new FormControl('',[Validators.required,Validators.email]),
     password:new FormControl('',Validators.required),
     name:new FormControl('',Validators.required),
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
     
   }
   onSubmitForm(){
-    const formValue=this.signUpForm.value;
+    const formValue=this.registerForm.value;
     const newUser = new User(formValue['email'],
     formValue['password'],
     formValue['name'],
@@ -38,14 +39,6 @@ export class RegisterComponent implements OnInit {
     formValue['sex'],
     formValue['birthday']);
     console.log(newUser);
-    /*this.userService.addUser(newUser);
     this.userService.saveUser(newUser);
-    this.userService.save_user(formValue['email'],
-    formValue['password'],
-    formValue['name'],
-    formValue['surname'],
-    formValue['picture'],
-    formValue['sex'],
-    formValue['birthday'])*/
   }
 }
