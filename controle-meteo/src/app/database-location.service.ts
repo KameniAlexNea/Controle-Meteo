@@ -50,7 +50,6 @@ export class DatabaseLocationService {
   }
 
 saveLocation(location : Location){
-
     this.dbService.add({ id : location.id, country_name: location.country, city_name: location.city, 
         longitude : location.longitude, latitude : location.latitude}).then(
           () => {},
@@ -60,7 +59,7 @@ saveLocation(location : Location){
       );
 }
 
-deleteLocation(id : number){
+deleteLocation(id : string){
     this.dbService.delete(id).then(
       () => {},
       error => {

@@ -1,7 +1,10 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Weather } from '../model/weather/weather';
 import { WeatherService } from '../service/weather/weather.service';
-import { Location } from '../model/location/location'
+import { Location } from '../model/location/location';
+import { DatabaseUserService } from '../database-user.service'; 
+import { DatabaseIdService } from '../database-id.service';
+import { DatabaseLocationService } from '../database-location.service';
 
 @Component({
    selector: 'app-meteo-actuelle',
@@ -40,17 +43,19 @@ export class MeteoActuelleComponent implements OnInit {
       this.selectedCity = parseInt(target.id)
       this.location = this.locations[this.selectedCity]
       this.obtenirMeteo(this.location)
+      
    }
 
    supprimerVille(event): void {
       var target = event.target || event.srcElement || event.currentTarget
       this.selectedCity = parseInt(target.id)
-      console.log(this.selectedCity)
       this.locations.splice(this.selectedCity, 1)
+      this.databaseLocationService.deleteLocation(this.locations[this.selectedCity].id);
    }
 
    public choixPosition(): void {
       this.locations.push(this.choiceLoc);
+      this.databaseLocationService.saveLocation(this.choiceLoc);
    }
 
    ngOnInit() {
@@ -70,7 +75,10 @@ export class MeteoActuelleComponent implements OnInit {
 
    weath: WeatherService;
 
-   constructor(weather: WeatherService) {
+   constructor(private weather: WeatherService, 
+      private databaseUserService : DatabaseUserService, 
+      private databaseIdService : DatabaseIdService, 
+      private databaseLocationService : DatabaseLocationService) {
 
 
       this.locations = new Array<Location>();
