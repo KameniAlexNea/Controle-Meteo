@@ -5,8 +5,7 @@ import { DatabaseUserService } from '../database-user.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
 
@@ -16,15 +15,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm:FormGroup;
   ngOnInit() {
-    // this.initForm();
-    this.userService.saveUser2('djoud',
-    'djjjjjj',
-    'tttttt',
-    'uiuuuuuu',
-    'picture',
-    'sex',
-    'birthday');
-    
+    this.initForm();
   }
   initForm(){
     this.registerForm=new FormGroup({

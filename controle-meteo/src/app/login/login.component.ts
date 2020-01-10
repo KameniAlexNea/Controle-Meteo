@@ -69,7 +69,6 @@ import { DatabaseUserService } from '../database-user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
@@ -97,9 +96,10 @@ export class LoginComponent implements OnInit {
     const formValue=this.loginForm.value;
     console.log(formValue['email'],formValue['password']);
     this.userService.isValid(formValue['email'],formValue['password']).then(
-      (res)=>{console.log('ok '+res);}
+      (res)=>{this.loading=res as boolean;
+        console.log(res as boolean);}
     );
-    console.log(this.initForm);
+    
     //this.authentification.emit(this.isAuth);
   }
 }
