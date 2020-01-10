@@ -1,5 +1,5 @@
 <div class="col">
-    <div class="card">
+    <div class="card text-center">
         <div class="card-header">
             {{weather[typeW]}}
         </div>
@@ -8,10 +8,10 @@
                 <img src="assets/img/{{imgBg}}" alt="" height="40" width="48" />
             </div>
             <p class="card-text">
-                T:{{weather.temperature}}<sup>o</sup>C
+                <span style="display: block;">T: {{weather.temperature}}<sup>o</sup>C</span>
+                <span style="display: block;"><small>H: {{weather.humidity}}<sup>%</sup></small></span>
+                <span style="display: block;"><small>P: {{weather.clouds}}<sup>%</sup></small></span>
             </p>
-            <small class="text-center">H:{{weather.humidity}}<sup>%</sup></small>
-            <small class="text-center">P:{{weather.clouds}}<sup>%</sup></small>
         </div>
     </div>
 </div>

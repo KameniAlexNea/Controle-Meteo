@@ -2,9 +2,10 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Weather } from '../model/weather/weather';
 import { WeatherService } from '../service/weather/weather.service';
 import { Location } from '../model/location/location';
-import { DatabaseUserService } from '../database-user.service'; 
+import { DatabaseUserService } from '../database-user.service';
 import { DatabaseIdService } from '../database-id.service';
 import { DatabaseLocationService } from '../database-location.service';
+import { MapService } from '../service/map/map.service';
 
 @Component({
    selector: 'app-meteo-actuelle',
@@ -27,6 +28,7 @@ export class MeteoActuelleComponent implements OnInit {
    changeToCUnit(): void {
       if (!this.tempUnit) {
          this.temperature = (parseFloat(this.temperature.toString()) - 32) * 5 / 9;
+         this.temperature = parseFloat(this.temperature.toFixed(2))
       }
       this.tempUnit = true
    }
@@ -34,6 +36,7 @@ export class MeteoActuelleComponent implements OnInit {
    changeToFUnit(): void {
       if (this.tempUnit) {
          this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
+         this.temperature = parseFloat(this.temperature.toFixed(2))
       }
       this.tempUnit = false
    }
@@ -43,12 +46,12 @@ export class MeteoActuelleComponent implements OnInit {
       this.selectedCity = parseInt(target.id)
       this.location = this.locations[this.selectedCity]
       this.obtenirMeteo(this.location)
-      
+
    }
 
    supprimerVille(event): void {
       var target = event.target || event.srcElement || event.currentTarget
-      this.selectedCity = parseInt(target.id); 
+      this.selectedCity = parseInt(target.id);
       let loc = this.locations[this.selectedCity].id;
       this.locations.splice(this.selectedCity, 1);
       this.databaseLocationService.deleteLocation(loc);
@@ -60,6 +63,22 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    ngOnInit() {
+      //creation de la carte 
+      this.myMap = this.map.creerCarte(this.choiceLoc);
+      //initialisation du marqueur
+      this.marker = this.map.putMarker(this.myMap, this.choiceLoc);
+      //selectionner un lieu sur la carte
+      this.myMap.on('click', (e) => {
+         this.choiceLoc = this.map.obtenirPosition(e, this.marker, this.myMap);
+      });
+      $('#myModal').on('show.bs.modal', function () {
+         setTimeout(function () {
+            this.myMap.invalidateSize();
+         }, 10);
+      });
+
+      // invalidateSize()
+      this.myMap.invalidateSize();
       this.obtenirMeteo(this.location)
 
       setInterval(() => {
@@ -73,13 +92,19 @@ export class MeteoActuelleComponent implements OnInit {
    //stocke les prévisions météoroliques par jour et par heure 
    daily = new Array();
    hourly = new Array();
+   myMap: any;
+   //le marqueur de position
+   marker: any;
+
+   map: MapService;
 
    weath: WeatherService;
 
-   constructor(private weather: WeatherService, 
-      private databaseUserService : DatabaseUserService, 
-      private databaseIdService : DatabaseIdService, 
-      private databaseLocationService : DatabaseLocationService) {
+   constructor(private weather: WeatherService,
+      private databaseUserService: DatabaseUserService,
+      private databaseIdService: DatabaseIdService,
+      private databaseLocationService: DatabaseLocationService,
+      map: MapService) {
 
 
       this.locations = new Array<Location>();
@@ -107,6 +132,7 @@ export class MeteoActuelleComponent implements OnInit {
 
       this.weath = weather;
       this.actualDate = new Date().toString()
+      this.map = map;
    }
 
    ngOnChanges(changes: SimpleChanges) {
@@ -151,5 +177,7 @@ export class MeteoActuelleComponent implements OnInit {
       }
 
    }
+
+
 
 }

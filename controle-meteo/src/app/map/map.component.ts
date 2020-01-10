@@ -35,5 +35,5 @@ export class MapComponent implements OnInit {
         });
         // invalidateSize()
         this.myMap.invalidateSize();
-    }
+    } 
 }
