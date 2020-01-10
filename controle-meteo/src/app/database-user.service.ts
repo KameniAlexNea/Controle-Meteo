@@ -11,6 +11,8 @@ export class DatabaseUserService {
      dbService.currentStore = 'User';
   }
 
+  USERSTORE = 'User'
+
   getUser(email : string) {
 
     return new Promise((resolve, reject) => {
@@ -39,8 +41,20 @@ export class DatabaseUserService {
   }
 
   saveUser(user : User){
-    this.dbService.add({email : user.email, password : user.password, name: user.name, surname: user.surname, picture : user.picture,
-        sex : user.sex, birthday : user.birthday }).then(
+    this.dbService.add({email : user._email, password : user._password, name: user._name, surname: user._surname, picture : user._picture,
+        sex : user._sex, birthday : user._birthday }).then(
+          () => {},
+          error => {
+              console.log(error);
+          }
+      );
+  }
+
+  saveUser2(email : string, password : string, name: string, surname: string, picture : string,
+    sex : string, birthday : string){
+    this.dbService.currentStore=this.USERSTORE;
+    this.dbService.add({email : email, password : password, name: name, surname: surname, picture : picture,
+        sex : sex, birthday : birthday }).then(
           () => {},
           error => {
               console.log(error);

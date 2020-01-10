@@ -10,11 +10,21 @@ import { DatabaseUserService } from '../database-user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private userService:DatabaseUserService) { }
+  constructor(private userService:DatabaseUserService) { 
+    
+  }
 
   registerForm:FormGroup;
   ngOnInit() {
-    this.initForm();
+    // this.initForm();
+    this.userService.saveUser2('djoud',
+    'djjjjjj',
+    'tttttt',
+    'uiuuuuuu',
+    'picture',
+    'sex',
+    'birthday');
+    
   }
   initForm(){
     this.registerForm=new FormGroup({
