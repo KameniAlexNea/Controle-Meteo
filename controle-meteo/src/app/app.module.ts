@@ -34,10 +34,12 @@ import { DatabaseUserService } from './database-user.service';
 import { DatabaseLocationService } from './database-location.service';
 import { DatabaseIdService } from './database-id.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 // const
 const dbConfig  = {
-   name: 'MyDb',
+   name: 'MaBd',
    version: 1,
    objectStoresMeta: [{
      store: 'User',
@@ -77,6 +79,8 @@ const dbConfig  = {
 @NgModule({
    declarations: [
       AppComponent,
+      LoginComponent,
+      RegisterComponent,
       HeaderComponent,
       FooterComponent,
       MeteoActuelleComponent,
