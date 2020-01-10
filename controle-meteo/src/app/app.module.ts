@@ -33,6 +33,7 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { DatabaseUserService } from './database-user.service';
 import { DatabaseLocationService } from './database-location.service';
 import { DatabaseIdService } from './database-id.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // const
 const dbConfig  = {
@@ -105,6 +106,7 @@ const dbConfig  = {
       TimepickerModule.forRoot(),
       TypeaheadModule.forRoot(),
       FontAwesomeModule,
+      ReactiveFormsModule,
       NgxIndexedDBModule.forRoot(dbConfig),
    ],
    providers: [
