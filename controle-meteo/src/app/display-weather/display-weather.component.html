@@ -1,15 +1,17 @@
 <div class="col">
-    <div class="forecast">
-        <div class="forecast-header">
-            <div class="day">{{weather[typeW]}}</div>
-        </div> <!-- .forecast-header -->
-        <div class="forecast-content">
-            <div class="forecast-icon">
-                <img src="assets/img/{{imgBg}}" alt="" width="48">
+    <div class="card">
+        <div class="card-header">
+            {{weather[typeW]}}
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <img src="assets/img/{{imgBg}}" alt="" height="40" width="48" />
             </div>
-            <div class="degree">T:{{weather.temperature}}<sup>o</sup>C</div>
-            <small>H:{{weather.humidity}}<sup>%</sup></small>
-            <small>P:{{weather.clouds}}<sup>%</sup></small>
+            <p class="card-text">
+                T:{{weather.temperature}}<sup>o</sup>C
+            </p>
+            <small class="text-center">H:{{weather.humidity}}<sup>%</sup></small>
+            <small class="text-center">P:{{weather.clouds}}<sup>%</sup></small>
         </div>
     </div>
 </div>

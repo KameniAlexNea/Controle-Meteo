@@ -48,9 +48,10 @@ export class MeteoActuelleComponent implements OnInit {
 
    supprimerVille(event): void {
       var target = event.target || event.srcElement || event.currentTarget
-      this.selectedCity = parseInt(target.id)
-      this.locations.splice(this.selectedCity, 1)
-      this.databaseLocationService.deleteLocation(this.locations[this.selectedCity].id);
+      this.selectedCity = parseInt(target.id); 
+      let loc = this.locations[this.selectedCity].id;
+      this.locations.splice(this.selectedCity, 1);
+      this.databaseLocationService.deleteLocation(loc);
    }
 
    public choixPosition(): void {
@@ -82,6 +83,11 @@ export class MeteoActuelleComponent implements OnInit {
 
 
       this.locations = new Array<Location>();
+      this.databaseLocationService.getAll().then(data => {
+         this.locations = data as Location[];
+      });
+
+      this.databaseIdService.getId().then(id => console.log());
       /**
        * Ma position c'est la position par défaut
        */

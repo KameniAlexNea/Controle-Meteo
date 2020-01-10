@@ -33,5 +33,7 @@ export class MapComponent implements OnInit {
         this.myMap.on('click', (e) => {
             this.location = this.map.obtenirPosition(e, this.marker, this.myMap);
         });
+        // invalidateSize()
+        this.myMap.invalidateSize();
     }
 }
