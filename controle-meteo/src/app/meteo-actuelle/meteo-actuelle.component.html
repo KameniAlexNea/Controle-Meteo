@@ -128,7 +128,7 @@
             <tbody>
                 <tr *ngFor="let city of locations; let i = index" [attr.data-index]="i">
                     <th scope="row">{{ i }}</th>
-                    <td>{{ city }}</td>
+                    <td>{{city.country }}  {{city.city}}</td>
                     <td>
                         <div class="form-check">
                             <input name="villeCheck" class="form-check-input" value="{{i}}" id="{{i}}" type="radio"
@@ -138,7 +138,7 @@
                     <td>
                         <div class="form-check">
                             <button class="btn btn-outline-danger" id="{{i}}"
-                                (click)="supprimerVille($event)">retirer</button>
+                                (click)="supprimerVille($event)">Supprimer</button>
                         </div>
                     </td>
                 </tr>
