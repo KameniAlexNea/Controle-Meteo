@@ -63,6 +63,11 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    ngOnInit() {
+      this.choiceLoc = new Location();
+      this.choiceLoc.latitude = 3.968;
+      this.choiceLoc.longitude = 11.5213;
+      this.choiceLoc.city = "Yaounde";
+      this.choiceLoc.country = "CM";
       //creation de la carte 
       this.myMap = this.map.creerCarte(this.choiceLoc);
       //initialisation du marqueur
@@ -71,12 +76,14 @@ export class MeteoActuelleComponent implements OnInit {
       this.myMap.on('click', (e) => {
          this.choiceLoc = this.map.obtenirPosition(e, this.marker, this.myMap);
       });
-      $('#myModal').on('show.bs.modal', function () {
-         setTimeout(function () {
-            this.myMap.invalidateSize();
-         }, 10);
-      });
-
+      $(window).ready(() => {
+         $('#myModal').on('show.bs.modal', function () {
+            console.log("Su")
+            setTimeout(function () {
+               this.myMap.invalidateSize();
+            }, 100);
+         });
+      })
       // invalidateSize()
       this.myMap.invalidateSize();
       this.obtenirMeteo(this.location)
@@ -124,11 +131,6 @@ export class MeteoActuelleComponent implements OnInit {
       /**
        * Choix de ville est stocké ici
        */
-      this.choiceLoc = new Location();
-      this.choiceLoc.latitude = 3.968;
-      this.choiceLoc.longitude = 11.5213;
-      this.choiceLoc.city = "Yaounde";
-      this.choiceLoc.country = "CM";
 
       this.weath = weather;
       this.actualDate = new Date().toString()

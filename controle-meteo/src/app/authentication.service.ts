@@ -16,7 +16,7 @@ export class AuthenticationService {
 
   }
 
-  isAuthenticate() {
+  public get isAuthenticate() {
     return this._isAuthenticate;
   }
 
