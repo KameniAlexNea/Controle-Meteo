@@ -31,7 +31,9 @@ export class MapComponent implements OnInit {
         this.marker = this.map.putMarker(this.myMap, this.location);
         //selectionner un lieu sur la carte
         this.myMap.on('click', (e) => {
-            this.location = this.map.obtenirPosition(e, this.marker, this.myMap);
+            this.map.obtenirPosition(e, this.marker, this.myMap).then(value=>{
+                this.location = value
+            });
         });
         // invalidateSize()
         this.myMap.invalidateSize();

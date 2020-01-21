@@ -3,6 +3,7 @@ export class Weather {
     private _temperature : number  = 0; 
     private _coulds : number = 0; 
     private _humidity : number = 0; 
+    private _description : string = "";
     private _jour : string = "";
     private _heure : string = "";
 
@@ -28,6 +29,14 @@ export class Weather {
 
     get humidity() : number {
         return this._humidity;
+    }
+
+    set description(description : string) {
+        this._description = description;
+    }
+
+    get description() : string {
+        return this._description;
     }
 
     set jour(jour : string) {

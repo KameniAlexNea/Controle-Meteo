@@ -1,6 +1,6 @@
 import { Injectable, Inject, forwardRef } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { User } from '../app/model/user';
+import { User } from '../../model/user';
 
 
 @Injectable({

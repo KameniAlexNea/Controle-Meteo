@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DatabaseUserService } from './database-user.service';
-import { DatabaseIdService } from './database-id.service';
-import { User } from './model/user';
+import { DatabaseUserService } from '../database/database-user.service';
+import { DatabaseIdService } from '../database/database-id.service';
+import { User } from '../../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private _isAuthenticate : boolean = false;
+  private _isAuthenticate: boolean = false;
 
-  constructor(private databaseUserService : DatabaseUserService, 
-              private databaseIdService : DatabaseIdService) { 
-
+  constructor(private databaseUserService: DatabaseUserService,
+    private databaseIdService: DatabaseIdService) {
   }
 
   public get isAuthenticate() {
-    return this._isAuthenticate;
+    return true // this._isAuthenticate;
   }
 
   login(email, password) {
@@ -26,7 +25,7 @@ export class AuthenticationService {
     });
   }
 
-  logout(id : string) {
+  logout(id: string) {
     if (id) {
       this.databaseIdService.saveLocation(id);
     }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { setTheme } from 'ngx-bootstrap/utils';
-import { AuthenticationService } from './authentication.service';
-import { TokenService } from './token.service';
+import { AuthenticationService } from './service/authentificate/authentication.service';
+import { TokenService } from './service/authentificate/token.service';
 
 @Component({
    selector: 'app-root',

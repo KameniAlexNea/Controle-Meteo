@@ -58,10 +58,10 @@ export class WeatherComponent implements OnInit {
         /*var city = this.malocation.city
         var country = this.malocation.country*/
         //this.meteo=weather.getWeatherByName(city, country);
-        this.meteo = this.weath.getWeatherByLocation(location);
+        this.weath.getWeatherByLocation(location).then(value => { this.meteo = value });
         //this.hourly=weather.getForecastHourlyByName(city, country);
-        this.hourly = this.weath.getForecastHourlyByLocation(location);
+        this.weath.getForecastHourlyByLocation(location).then(value => { this.hourly = value });
         //this.daily=weather.getForecastDailyByName(city, country);
-        this.daily = this.weath.getForecastDailyByLocation(location);
+        this.weath.getForecastDailyByLocation(location).then(value => { this.daily = value });
     }
 }

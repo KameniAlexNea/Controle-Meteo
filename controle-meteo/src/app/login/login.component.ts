@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { DatabaseUserService } from '../database-user.service';
+import { DatabaseUserService } from '../service/database/database-user.service';
 
 
 @Component({
@@ -23,10 +23,8 @@ export class LoginComponent implements OnInit {
    initForm() {
       this.loginForm = new FormGroup({
          email: new FormControl('', [Validators.required, Validators.email]),
-         password: new FormControl('', Validators.required)
-
+         password: new FormControl('', [Validators.required, Validators.min(8)])
       });
-
    }
 
    onSubmitForm() {
@@ -38,8 +36,14 @@ export class LoginComponent implements OnInit {
             this.loading = res as boolean;
             console.log(res as boolean);
          }
-      );
-
+      ).catch((err) => {
+         console.log(err)
+         this.loginForm.setErrors(err)
+      });
       //this.authentification.emit(this.isAuth);
+   }
+
+   revert() {
+      this.loginForm.reset()
    }
 }

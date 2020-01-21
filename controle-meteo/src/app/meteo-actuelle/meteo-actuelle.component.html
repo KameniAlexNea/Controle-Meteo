@@ -1,155 +1,146 @@
-<div class="row" style="padding-top: 50px; padding-bottom: 50px;">
-    <div class="col-md-8">
-        <div class="card" style="border-radius: 10px;">
-            <div class="card-body">
-                <div class="container-fluid">
-                    <h5 class="card-title" style="font-size: 2.5rem;">{{location.city}}, {{location.country}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{actualDate}}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">{{stateDay}}</h6>
-                </div>
-                <div class="card-text">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-1">
-                                </div>
-                                <img class="rounded d-block" style="margin: 5px;" src="assets/img/{{imgBg}}" />
+<div class="container-fluid">
+    <app-header></app-header>
+</div>
+<div class="container">
+    <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+        <div class="col-md-8">
+            <div class="card" style="border-radius: 10px;">
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <h5 class="card-title" style="font-size: 2.5rem;">{{location.city}}, {{location.country}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{actualDate}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{meteo.description}}</h6>
+                    </div>
+                    <div class="card-text">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                    </div>
+                                    <img class="rounded d-block" style="margin: 5px;" src="assets/img/{{imgBg}}" />
 
-                                <h2 style="font-size: 50px; margin-right: 5px;"> {{temperature}}</h2>
-                                <ul class="nav nav-pills">
+                                    <h2 style="font-size: 50px; margin-right: 5px;"> {{temperature}}</h2>
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item">
+                                            <span> </span><a class="nav-link active" data-toggle="pill"
+                                                (click)="changeToCUnit()" href="#" role="tab" aria-controls="pills-c"
+                                                aria-selected="true">°C</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <span> </span><a class="nav-link" data-toggle="pill"
+                                                (click)="changeToFUnit()" href="#" role="tab" aria-controls="pills-f"
+                                                aria-selected="false">°F</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span><i class="fa fa-thermometer-half"> Humidité(%)</i></span>
+                                    </div>
+                                    <div class="col-md-6">{{meteo.humidity}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span><i class="fa fa-thermometer-half"> Pluviométrie(%)</i></span>
+                                    </div>
+                                    <div class="col-md-6">{{meteo.clouds}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 2rem;">
+                            <div class="col">
+                                <ul class="nav nav-tabs" id="myTab1" role="tablist">
                                     <li class="nav-item">
-                                        <span> </span><a class="nav-link active" data-toggle="pill"
-                                            (click)="changeToCUnit()" href="#" role="tab" aria-controls="pills-c"
-                                            aria-selected="true">°C</a>
+                                        <a class="nav-link active" id="heure-tab" data-toggle="tab" href="#heure"
+                                            role="tab" aria-controls="heure" aria-selected="true"> Meteo Par Heure</a>
                                     </li>
                                     <li class="nav-item">
-                                        <span> </span><a class="nav-link" data-toggle="pill" (click)="changeToFUnit()"
-                                            href="#" role="tab" aria-controls="pills-f" aria-selected="false">°F</a>
+                                        <a class="nav-link" id="jour-tab" data-toggle="tab" href="#jour" role="tab"
+                                            aria-controls="jour" aria-selected="false"> Meteo Par Jour</a>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <span><i class="fa fa-thermometer-half"> Humidité(%)</i></span>
-                                </div>
-                                <div class="col-md-6">{{meteo.humidity}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <span><i class="fa fa-thermometer-half"> Pluviométrie(%)</i></span>
-                                </div>
-                                <div class="col-md-6">{{meteo.clouds}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 2rem;">
-                        <div class="col">
-                            <ul class="nav nav-tabs" id="myTab1" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="heure-tab" data-toggle="tab" href="#heure" role="tab"
-                                        aria-controls="heure" aria-selected="true"> Heure</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="jour-tab" data-toggle="tab" href="#jour" role="tab"
-                                        aria-controls="jour" aria-selected="false"> Jour</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent1" style="margin-top: 2rem; margin-bottom: 2rem;">
-                                <div class="tab-pane fade show active" id="heure" role="tabpanel"
-                                    aria-labelledby="temp-tab">
-                                    <div class="row">
-                                        <span *ngFor="let dayInf of hourly">
-                                            <app-display-weather [typeW]="'heure'" [weather]="dayInf">
-                                            </app-display-weather>
-                                        </span>
+                                <div class="tab-content" id="myTabContent1"
+                                    style="margin-top: 2rem; margin-bottom: 2rem;">
+                                    <div class="tab-pane fade show active" id="heure" role="tabpanel"
+                                        aria-labelledby="temp-tab">
+                                        <div class="row">
+                                            <span *ngFor="let dayInf of hourly">
+                                                <app-display-weather [typeW]="'heure'" [weather]="dayInf">
+                                                </app-display-weather>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade show" id="jour" role="tabpanel" aria-labelledby="temp-tab">
-                                    <div class="row">
-                                        <span class="col" *ngFor="let dayInf of daily">
+                                    <div class="tab-pane fade show" id="jour" role="tabpanel"
+                                        aria-labelledby="temp-tab">
+                                        <div class="row" *ngFor="let dayInf of daily">
+                                            <!-- <span class="col" > -->
                                             <div class="col">
                                                 <app-display-weather [typeW]="'jour'" [weather]="dayInf">
                                                 </app-display-weather>
                                             </div>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="row">
-            <div class="col-md-11"></div>
-            <div class="col-md-1">
-                <!-- Button to Open the Modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    ajout
-                </button>
-                <!-- The Modal -->
-                <div class="modal fade" id="myModal">
-                    <div class="modal-dialog modal-fluid">
-                        <div class="modal-content">
-                            <!-- Modal Header -->
-                            <div class="modal-header text-center">
-                                <h4 class="modal-title">Ajouter une position</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="container">
-                                        <div class="container map" id="map">
-
+                                            <!-- </span> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" (click)="choixPosition()"
-                                    data-dismiss="modal">valider</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mx-auto text-center"
+            style="margin-left: 10px; background-color: black; width: 100%!important;">
+            <div class="container-fluid">
+                <div class="row" style="width: 100%!important; background-color: red;">
+                    <div class="row" *ngFor="let loc of locations; let i = index;" [attr.data-index]="i">
+                        <div class="col-md-12">
+                            <app-display-ville id="{{i}}" (prevision)="supprimerVille($event)" [location]="loc"
+                                [id]="i"></app-display-ville>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 100%!important;">
+                        <div class="col container-fluid"
+                            style="width: 100%!important; position: relative; bottom: 0px;">
+                            <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal"
+                                data-target="#myModal" style="width: 100%!important;">
+                                <small>ajouter un emplacement</small>
+                            </button>
+                        </div>
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog modal-fluid">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title">Ajouter une position</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="container">
+                                                <div class="container map" id="map">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" (click)="choixPosition()"
+                                            data-dismiss="modal">valider</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-        <table style="margin-top: 10px;" class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Ville</th>
-                    <th scope="col">Choix</th>
-                    <th scope="col">Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let city of locations; let i = index" [attr.data-index]="i">
-                    <th scope="row">{{ i }}</th>
-                    <td>{{city.country }} {{city.city}}</td>
-                    <td>
-                        <div class="form-check">
-                            <input name="villeCheck" class="form-check-input" value="{{i}}" id="{{i}}" type="radio"
-                                (change)="choixVille($event)" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-check">
-                            <button class="btn btn-outline-danger" id="{{i}}"
-                                (click)="supprimerVille($event)">Supprimer</button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>

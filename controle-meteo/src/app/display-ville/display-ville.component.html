@@ -1,0 +1,24 @@
+<div  class="row rounded" style="width: 100%;" appRandomColor>
+    <div class="col-md-2">
+        <div class="row">
+            <img src="assets/img/{{imgBg}}" alt="" height="60%" width="100%" />
+        </div>
+        <div class="row" style="width: 100%; height: 40%;">
+            <small>{{weather.temperature}}°C</small>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row text-center">
+            <small>{{location.city}}, {{location.country}}</small>
+        </div>
+        <div class="row">
+            <small>{{weather.description}}</small>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-outline-danger close right" style="width: 100%; height: 100%;">
+            &times;
+            <!-- <img width="100%" height="100%" src="assets/img/deleteImg.png"> -->
+        </button>
+    </div>
+</div>

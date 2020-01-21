@@ -46,8 +46,3 @@ export class Location {
         this._latitude = latitude;
     }
 }
-
-
-
-
-

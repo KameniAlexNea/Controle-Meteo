@@ -2,9 +2,9 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Weather } from '../model/weather/weather';
 import { WeatherService } from '../service/weather/weather.service';
 import { Location } from '../model/location/location';
-import { DatabaseUserService } from '../database-user.service';
-import { DatabaseIdService } from '../database-id.service';
-import { DatabaseLocationService } from '../database-location.service';
+import { DatabaseUserService } from '../service/database/database-user.service';
+import { DatabaseIdService } from '../service/database/database-id.service';
+import { DatabaseLocationService } from '../service/database/database-location.service';
 import { MapService } from '../service/map/map.service';
 
 @Component({
@@ -15,15 +15,26 @@ import { MapService } from '../service/map/map.service';
 
 export class MeteoActuelleComponent implements OnInit {
 
-   temperature: Number = 25; // Afficher la temperature en haut, facilite les modif
-   stateDay: string = "Brume" // Description
+   temperature: number = 25; // Afficher la temperature en haut, facilite les modif
    tempUnit: boolean = true // true pour °C et false pour °F
    actualDate: string // La date actuelle
    selectedCity: number = 0 // Id de la ville selectionnée
-   imgBg: String; // Image à côté de la température
+   imgBg: string; // Image à côté de la température
    locations: Array<Location>
-   choiceLoc: Location;
-   location: Location
+   choiceLoc: Location; // Position choisie
+   location: Location // Ma position actuelle
+   //stocke les données météoroliques courrentes
+   meteo: Weather = new Weather();
+   //stocke les prévisions météoroliques par jour et par heure 
+   daily = new Array();
+   hourly = new Array();
+   myMap: any;
+   //le marqueur de position
+   marker: any;
+
+   map: MapService;
+
+   weath: WeatherService;
 
    changeToCUnit(): void {
       if (!this.tempUnit) {
@@ -46,7 +57,6 @@ export class MeteoActuelleComponent implements OnInit {
       this.selectedCity = parseInt(target.id)
       this.location = this.locations[this.selectedCity]
       this.obtenirMeteo(this.location)
-
    }
 
    supprimerVille(event): void {
@@ -74,17 +84,18 @@ export class MeteoActuelleComponent implements OnInit {
       this.marker = this.map.putMarker(this.myMap, this.choiceLoc);
       //selectionner un lieu sur la carte
       this.myMap.on('click', (e) => {
-         this.choiceLoc = this.map.obtenirPosition(e, this.marker, this.myMap);
-      });
-      $(window).ready(() => {
-         $('#myModal').on('show.bs.modal', function () {
-            console.log("Su")
-            setTimeout(function () {
-               this.myMap.invalidateSize();
-            }, 100);
+         this.map.obtenirPosition(e, this.marker, this.myMap).then(location => {
+            this.choiceLoc = location;
          });
-      })
-      // invalidateSize()
+      });
+      // $(window).ready(() => {
+      //    $('#myModal').on('show.bs.modal', function () {
+      //       console.log("Test")
+      //       setTimeout(function () {
+      //          this.myMap.invalidateSize();
+      //       }, 100);
+      //    });
+      // })
       this.myMap.invalidateSize();
       this.obtenirMeteo(this.location)
 
@@ -92,20 +103,6 @@ export class MeteoActuelleComponent implements OnInit {
          this.obtenirMeteo(this.location);
       }, 15 * 60 * 1000)
    }
-
-
-   //stocke les données météoroliques courrentes
-   meteo: Weather = new Weather();
-   //stocke les prévisions météoroliques par jour et par heure 
-   daily = new Array();
-   hourly = new Array();
-   myMap: any;
-   //le marqueur de position
-   marker: any;
-
-   map: MapService;
-
-   weath: WeatherService;
 
    constructor(private weather: WeatherService,
       private databaseUserService: DatabaseUserService,
@@ -121,7 +118,7 @@ export class MeteoActuelleComponent implements OnInit {
 
       this.databaseIdService.getId().then(id => console.log());
       /**
-       * Ma position c'est la position par défaut
+       * La position par défaut
        */
       this.location = new Location();
       this.location.latitude = 3.968;
@@ -147,18 +144,17 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    obtenirMeteo(location) {
-      this.meteo = this.weath.getWeatherByLocation(location);
+      this.weath.getWeatherByLocation(location).then(value => {
+         this.meteo = value
+      });
 
-      this.hourly = this.weath.getForecastHourlyByLocation(location);
-      this.daily = this.weath.getForecastDailyByLocation(location);
-      this.setImageByTemp();
-      setTimeout(() => {
-         this.temperature = parseFloat(this.meteo.temperature.toFixed(2))
-         if (!this.tempUnit) {
-            this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
-         }
-         this.setImageByTemp()
-      }, 3000);
+      this.weath.getForecastHourlyByLocation(location).then(value => {
+         this.hourly = value;
+         this.weath.getForecastDailyByLocation(location).then(value => {
+            this.daily = value;
+            this.setImageByTemp();
+         });
+      });
    }
 
    setImageByTemp() {
@@ -177,7 +173,10 @@ export class MeteoActuelleComponent implements OnInit {
       } else {
          this.imgBg = "icon-11.svg"
       }
-
+      this.temperature = parseFloat(this.meteo.temperature.toFixed(2))
+      if (!this.tempUnit) {
+         this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
+      }
    }
 
 

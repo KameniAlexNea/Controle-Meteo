@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { User } from '../model/user';
-import { DatabaseUserService } from '../database-user.service';
+import { DatabaseUserService } from '../service/database/database-user.service';
 
 @Component({
   selector: 'app-register',

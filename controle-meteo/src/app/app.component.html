@@ -285,29 +285,6 @@
       }
    }
 </style>
-<header>
-   <app-header></app-header>
-</header>
-<div class="container">
-   <span *ngIf="authService.isAuthenticate; else elseBlock">
-      <app-meteo-actuelle></app-meteo-actuelle>
-   </span>
-   <ng-template #elseBlock>
-
-      <div class="row">
-         <div class="col">
-            <app-login>
-            </app-login>
-         </div>
-         <div class="col">
-            <app-register></app-register>
-         </div>
-
-      </div>
-   </ng-template>
-</div>
-
-<app-footer></app-footer>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
@@ -317,6 +294,10 @@
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<div class="container-fluid">
+   <router-outlet></router-outlet>
+</div>
 
-
-<router-outlet></router-outlet>
+<div class="container-fluid" style="border-radius: 50px;">
+   <app-footer></app-footer>
+</div>
