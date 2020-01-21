@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
    { path: '', redirectTo: '/controle-meteo', pathMatch: 'full' },
-   { path: 'controle-meteo/login', component: LoginComponent },
-   { path: 'controle-meteo/logout', component: RegisterComponent },
+   { path: 'controle-meteo/signIn', component: LoginComponent },
+   { path: 'controle-meteo/signUp', component: RegisterComponent },
    { path: 'controle-meteo', component: MeteoActuelleComponent }
 ];
 

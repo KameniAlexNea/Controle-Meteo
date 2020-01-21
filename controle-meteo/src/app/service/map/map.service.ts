@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
-import { resolve } from 'url';
 import { WeatherService } from '../weather/weather.service';
 import { Location } from 'src/app/model/location/location';
 

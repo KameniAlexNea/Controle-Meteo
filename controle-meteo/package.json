@@ -30,6 +30,7 @@
     "jQuery": "^1.7.4",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
+    "ng2-file-upload": "^1.4.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-indexed-db": "^3.0.15",
     "rxjs": "~6.4.0",

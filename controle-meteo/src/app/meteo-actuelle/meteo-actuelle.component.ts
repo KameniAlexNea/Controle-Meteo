@@ -15,31 +15,22 @@ import { MapService } from '../service/map/map.service';
 
 export class MeteoActuelleComponent implements OnInit {
 
-   temperature: number = 25; // Afficher la temperature en haut, facilite les modif
+   temperature: Number = 25; // Afficher la temperature en haut, facilite les modif
    tempUnit: boolean = true // true pour °C et false pour °F
    actualDate: string // La date actuelle
    selectedCity: number = 0 // Id de la ville selectionnée
-   imgBg: string; // Image à côté de la température
+   imgBg: String; // Image à côté de la température
    locations: Array<Location>
-   choiceLoc: Location; // Position choisie
-   location: Location // Ma position actuelle
-   //stocke les données météoroliques courrentes
-   meteo: Weather = new Weather();
-   //stocke les prévisions météoroliques par jour et par heure 
-   daily = new Array();
-   hourly = new Array();
+   choiceLoc: Location = new Location();
+   location: Location = new Location();
+
    myMap: any;
    //le marqueur de position
    marker: any;
 
-   map: MapService;
-
-   weath: WeatherService;
-
    changeToCUnit(): void {
       if (!this.tempUnit) {
          this.temperature = (parseFloat(this.temperature.toString()) - 32) * 5 / 9;
-         this.temperature = parseFloat(this.temperature.toFixed(2))
       }
       this.tempUnit = true
    }
@@ -47,7 +38,6 @@ export class MeteoActuelleComponent implements OnInit {
    changeToFUnit(): void {
       if (this.tempUnit) {
          this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
-         this.temperature = parseFloat(this.temperature.toFixed(2))
       }
       this.tempUnit = false
    }
@@ -56,7 +46,7 @@ export class MeteoActuelleComponent implements OnInit {
       var target = event.target || event.srcElement || event.currentTarget
       this.selectedCity = parseInt(target.id)
       this.location = this.locations[this.selectedCity]
-      this.obtenirMeteo(this.location)
+      this.obtenirMeteo(this.location);
    }
 
    supprimerVille(event): void {
@@ -67,17 +57,16 @@ export class MeteoActuelleComponent implements OnInit {
       this.databaseLocationService.deleteLocation(loc);
    }
 
+   public setPosition($event) {
+      this.choiceLoc = $event;
+   }
+
    public choixPosition(): void {
       this.locations.push(this.choiceLoc);
       this.databaseLocationService.saveLocation(this.choiceLoc);
    }
 
    ngOnInit() {
-      this.choiceLoc = new Location();
-      this.choiceLoc.latitude = 3.968;
-      this.choiceLoc.longitude = 11.5213;
-      this.choiceLoc.city = "Yaounde";
-      this.choiceLoc.country = "CM";
       //creation de la carte 
       this.myMap = this.map.creerCarte(this.choiceLoc);
       //initialisation du marqueur
@@ -88,73 +77,137 @@ export class MeteoActuelleComponent implements OnInit {
             this.choiceLoc = location;
          });
       });
-      // $(window).ready(() => {
-      //    $('#myModal').on('show.bs.modal', function () {
-      //       console.log("Test")
-      //       setTimeout(function () {
-      //          this.myMap.invalidateSize();
-      //       }, 100);
-      //    });
-      // })
-      this.myMap.invalidateSize();
-      this.obtenirMeteo(this.location)
-
       setInterval(() => {
-         this.obtenirMeteo(this.location);
+         this.obtenirMeteo(this.location)
       }, 15 * 60 * 1000)
    }
+
+
+   //stocke les données météoroliques courrentes
+   meteo: Weather = new Weather();
+   //stocke les prévisions météoroliques par jour et par heure 
+   daily = new Array();
+   hourly = new Array();
+
+   weath: WeatherService;
 
    constructor(private weather: WeatherService,
       private databaseUserService: DatabaseUserService,
       private databaseIdService: DatabaseIdService,
       private databaseLocationService: DatabaseLocationService,
-      map: MapService) {
+      private map:MapService) {
 
 
       this.locations = new Array<Location>();
       this.databaseLocationService.getAll().then(data => {
-         this.locations = data as Location[];
+         this.locations = Array();
+         let temp = <Location[]>data;
+         for (let obj of temp) {
+            let tempL = new Location();
+            this.castLocationFromDb(obj, tempL);
+            this.locations.push(tempL);
+         }
+         if (this.locations.length > 0) {
+            this.location = this.locations[0];
+            this.choiceLoc = this.locations[0];
+            this.weath = weather;
+            this.actualDate = new Date().toString();
+
+            // retrieve meto parameter
+            this.obtenirMeteo(this.location);
+         }
+      });
+      this.databaseIdService.getId().then(id => {
+         if (id) {
+            this.databaseLocationService.getLocation(Number(id))
+               .then(
+                  (data) => {
+                     this.castLocationFromDb(data, this.location);
+                     this.castLocationFromDb(data, this.choiceLoc);
+                     this.weath = weather;
+                     this.actualDate = new Date().toString();
+
+                     // retrieve meto parameter
+                     this.obtenirMeteo(this.location);
+                  },
+                  (error) => {
+                     console.log(error);
+                  }
+               );
+         } else {
+            if (!this.location.city) {
+               this.location = new Location();
+               this.location.latitude = 3.968;
+               this.location.longitude = 11.5213;
+               this.location.city = "Yaounde";
+               this.location.country = "CM";
+
+               /**
+                * Choix de ville est stocké ici
+                */
+               this.choiceLoc = new Location();
+               this.choiceLoc.latitude = 3.968;
+               this.choiceLoc.longitude = 11.5213;
+               this.choiceLoc.city = "Yaounde";
+               this.choiceLoc.country = "CM";
+
+
+               this.weath = weather;
+               this.actualDate = new Date().toString();
+
+               // retrieve meto parameter
+               this.obtenirMeteo(this.location);
+            }
+         }
       });
 
-      this.databaseIdService.getId().then(id => console.log());
-      /**
-       * La position par défaut
-       */
-      this.location = new Location();
-      this.location.latitude = 3.968;
-      this.location.longitude = 11.5213;
-      this.location.city = "Yaounde";
-      this.location.country = "CM";
-      /**
-       * Choix de ville est stocké ici
-       */
-
-      this.weath = weather;
-      this.actualDate = new Date().toString()
-      this.map = map;
    }
 
    ngOnChanges(changes: SimpleChanges) {
       for (let propName in changes) {
          let chng = changes[propName];
          let cur = chng.currentValue;
-         let prev = JSON.stringify(chng.previousValue);
          this.obtenirMeteo(cur);
       }
    }
 
    obtenirMeteo(location) {
-      this.weath.getWeatherByLocation(location).then(value => {
-         this.meteo = value
-      });
+      this.weath.getWeatherByLocation(location)
+         .then(
+            (data) => {
+               this.castWeather(data, this.meteo);
+               this.temperature = parseFloat(this.meteo.temperature.toFixed(2))
+               if (!this.tempUnit) {
+                  this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
+               }
+               this.setImageByTemp();
+            },
+            (error) => {
+               console.log(error);
+            }
+         );
 
-      this.weath.getForecastHourlyByLocation(location).then(value => {
-         this.hourly = value;
-         this.weath.getForecastDailyByLocation(location).then(value => {
-            this.daily = value;
-            this.setImageByTemp();
-         });
-      });
+      this.weath.getForecastHourlyByLocation(location)
+         .then(
+            (hourly) => {
+               this.hourly = hourly;
+               this.setImageByTemp();
+            },
+            (error) => {
+               console.log(error);
+            });
+
+      this.weath.getForecastDailyByLocation(location)
+         .then(
+            (daily) => {
+               this.daily = daily;
+               this.setImageByTemp();
+            },
+            (error) => {
+               console.log(error);
+            }
+         );
+
    }
 
    setImageByTemp() {
@@ -173,12 +226,29 @@ export class MeteoActuelleComponent implements OnInit {
       } else {
          this.imgBg = "icon-11.svg"
       }
-      this.temperature = parseFloat(this.meteo.temperature.toFixed(2))
-      if (!this.tempUnit) {
-         this.temperature = (parseFloat(this.temperature.toString()) * 9 / 5) + 32;
-      }
+
    }
 
+   castLocation(object, location: Location) {
+      location.city = object['_city_name'];
+      location.country = object['_country_name'];
+      location.id = object['_id'];
+      location.latitude = object['_latitude'];
+      location.longitude = object['_longitude'];
+   }
 
-
+   castLocationFromDb(object, location: Location) {
+      location.city = object['city_name'];
+      location.country = object['country_name'];
+      location.id = object['id'];
+      location.latitude = object['latitude'];
+      location.longitude = object['longitude'];
+   }
+   castWeather(object, weather: Weather) {
+      weather.clouds = object['_clouds'];
+      weather.heure = object['_heure'];
+      weather.humidity = object['_humidity'];
+      weather.jour = object['_jour'];
+      weather.temperature = object['_temperature'];
+   }
 }

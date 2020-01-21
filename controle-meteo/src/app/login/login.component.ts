@@ -1,6 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { DatabaseUserService } from '../service/database/database-user.service';
+import { AuthenticationService } from '../service/authentificate/authentication.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
    submitted = false;
    returnUrl: string;
    error: string;
-   constructor(private userService: DatabaseUserService) { }
+   constructor(private userService: DatabaseUserService, private authS:AuthenticationService) { }
 
    ngOnInit() {
       this.initForm();
