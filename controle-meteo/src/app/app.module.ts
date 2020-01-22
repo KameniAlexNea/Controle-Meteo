@@ -44,6 +44,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { DisplayVilleComponent } from './display-ville/display-ville.component';
 import { RandomColorDirective } from './directive/random-color.directive';
+import { ModalComponent } from './modal/modal.component';
 
 // const
 const dbConfig = {
@@ -97,7 +98,7 @@ const dbConfig = {
     DisplayWeatherComponent,
     DisplayVilleComponent,
     RandomColorDirective,
-
+    ModalComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -132,7 +133,7 @@ const dbConfig = {
     MatTableModule,
     MatMenuModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [
     DatabaseIdService,
@@ -159,6 +160,6 @@ const dbConfig = {
     MatProgressSpinnerModule,
     CommonModule
   ],
-  entryComponents: [MeteoActuelleComponent]
+  entryComponents: [MeteoActuelleComponent, ModalComponent]
 })
 export class AppModule { }

@@ -6,6 +6,8 @@ import { DatabaseUserService } from '../service/database/database-user.service';
 import { DatabaseIdService } from '../service/database/database-id.service';
 import { DatabaseLocationService } from '../service/database/database-location.service';
 import { MapService } from '../service/map/map.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
    selector: 'app-meteo-actuelle',
@@ -91,11 +93,29 @@ export class MeteoActuelleComponent implements OnInit {
 
    weath: WeatherService;
 
+   openModal() {
+      const dialogConfig = new MatDialogConfig();
+      // The user can't close the dialog by clicking outside its body
+      dialogConfig.disableClose = true;
+      dialogConfig.id = "modal-component";
+      dialogConfig.height = "600px";
+      dialogConfig.width = "800px";
+      // https://material.angular.io/components/dialog/overview
+      const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+      modalDialog.componentInstance["messageToEmit"].subscribe((event)=>{
+         this.choiceLoc = event;
+         this.choixPosition();
+        /* console.log("2")
+         console.log(this.choiceLoc)*/
+      })
+      
+    }
+
    constructor(private weather: WeatherService,
       private databaseUserService: DatabaseUserService,
       private databaseIdService: DatabaseIdService,
       private databaseLocationService: DatabaseLocationService,
-      private map:MapService) {
+      private map:MapService, public matDialog: MatDialog) {
 
 
       this.locations = new Array<Location>();

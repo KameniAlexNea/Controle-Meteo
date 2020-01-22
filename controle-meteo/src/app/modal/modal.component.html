@@ -1,0 +1,33 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title text-align:center"> Bienvenue sur MyMap</h1>
+    </header>
+    <section id="modal-body">
+        <div class="card-body">
+            <form [formGroup]="villeForm" (ngSubmit)="onSubmit()">
+                <label>Rechercher une ville</label>
+                <input type="text" formControlName="city" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+                <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                    <div *ngIf="f.city.errors.required">City Name is required</div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1">Valider</button>
+                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-12" id="map">
+
+        </div>
+        <span id="coord">
+            La location a pour latitude {{location.latitude}} et comme longitude {{location.longitude}} comme id
+            {{location.id}} comme pays {{location.country}} comme ville {{location.city}}
+        </span>
+    </section>
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Valider</button>
+        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Annuler</button>
+    </footer>
+</div>
