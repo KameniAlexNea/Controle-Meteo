@@ -52,4 +52,8 @@ export class LoginComponent implements OnInit {
    revert() {
       this.loginForm.reset()
    }
+
+   goToLogout() {
+      this.router.navigate(['controle-meteo/signUp'])
+   }
 }

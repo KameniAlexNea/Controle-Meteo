@@ -124,10 +124,11 @@ export class AuthenticationService {
           this.currentUserTokenSubject.next(token);
           this.databaseUserService.getUserE(email, password).then(user => {
             this._user = user;
+            localStorage.setItem("user", JSON.stringify(user));
           })
           resolve(true);
         } else {
-          resolve(false);
+          reject(false);
         }
       });
     });

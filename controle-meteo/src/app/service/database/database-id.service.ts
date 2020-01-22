@@ -8,7 +8,9 @@ export class DatabaseIdService {
   constructor(@Inject(forwardRef(() => NgxIndexedDBService))private dbService: NgxIndexedDBService){
     dbService.currentStore = 'Id';
   }
+  USERSTORE = 'Id';
   getId() {
+    this.dbService.currentStore = this.USERSTORE;
     return new Promise((resolve, reject) => {
       this.dbService.getByKey(1).then(
         id_loc => {
@@ -23,6 +25,7 @@ export class DatabaseIdService {
 }
 
   saveLocation(id : string){
+    this.dbService.currentStore = this.USERSTORE;
     this.dbService.clear().then(
       () => {},
         error => {

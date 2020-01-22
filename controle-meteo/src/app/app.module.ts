@@ -51,7 +51,7 @@ const dbConfig = {
   name: 'MaBd',
   version: 1,
   objectStoresMeta: [{
-    store: 'User',
+    store: 'user',
     storeConfig: { keyPath: 'email', autoIncrement: false },
     storeSchema: [
       { name: 'email', keypath: 'email', options: { unique: true } },
@@ -64,7 +64,7 @@ const dbConfig = {
     ]
   },
   {
-    store: 'Location',
+    store: 'location',
     storeConfig: { keyPath: 'id', autoIncrement: false },
     storeSchema: [
       { name: 'id', keypath: 'id', options: { unique: true } },
@@ -75,7 +75,7 @@ const dbConfig = {
     ]
   },
   {
-    store: 'Id',
+    store: 'id',
     storeConfig: { keyPath: 'id', autoIncrement: true },
     storeSchema: [
       { name: 'id', keypath: 'id', options: { unique: true } },

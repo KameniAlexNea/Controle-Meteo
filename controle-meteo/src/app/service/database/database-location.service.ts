@@ -8,72 +8,85 @@ import { Location } from '../../model/location/location';
 })
 export class DatabaseLocationService {
 
-  constructor(@Inject(forwardRef(() => NgxIndexedDBService))private dbService: NgxIndexedDBService){
-    dbService.currentStore = 'Location';
+  constructor(@Inject(forwardRef(() => NgxIndexedDBService)) private dbService: NgxIndexedDBService) {
+    dbService.currentStore = 'location';
+  this.USERSTORE = 'location';
   }
-
-  getLocation(id : number) {
+  USERSTORE
+  getLocation(id: number) {
+    this.dbService.currentStore = this.USERSTORE;
     return new Promise((resolve, reject) => {
       this.dbService.getByKey(id).then(
         location => {
-            resolve(location);
+          resolve(location);
         },
         error => {
-            reject(error);
+          reject(error);
         }
-    );
-    });   
-}
+      );
+    });
+  }
 
   getAll() {
+    this.USERSTORE='location';
+    this.dbService.currentStore = 'location';
     return new Promise((resolve, reject) => {
       this.dbService.getAll().then(
         location => {
-            resolve(location);
+          console.log(location)
+          resolve(location);
         },
         error => {
-            reject(error);
+          reject(error);
         }
-    );
-    }); 
-  }
-
-  updateLocation(location : Location){
-    this.dbService.update({ id : location.id, country_name: location.country, city_name: location.city, 
-      longitude : location.longitude, latitude : location.latitude}).then(
-      () => {},
-      error => {
-          console.log(error);
-      }
-  );
-  }
-
-saveLocation(location : Location){
-    this.dbService.add({ id : location.id, country_name: location.country, city_name: location.city, 
-        longitude : location.longitude, latitude : location.latitude}).then(
-          () => {},
-          error => {
-              console.log(error);
-          }
       );
-}
+    });
+  }
 
-deleteLocation(id : string){
-    this.dbService.delete(id).then(
-      () => {},
+  updateLocation(location: Location) {
+    this.dbService.currentStore = this.USERSTORE;
+    this.dbService.update({
+      id: location.id, country_name: location.country, city_name: location.city,
+      longitude: location.longitude, latitude: location.latitude
+    }).then(
+      () => { },
       error => {
-          console.log(error);
-      }
-  );
-}
-
-clearLocation(){
-   this.dbService.clear().then(
-    () => {},
-    error => {
         console.log(error);
-    }
-);
-}
+      }
+    );
+  }
+
+  saveLocation(location: Location) {
+    this.dbService.currentStore = this.USERSTORE;
+    this.dbService.add({
+      id: location.id, country_name: location.country, city_name: location.city,
+      longitude: location.longitude, latitude: location.latitude
+    }).then(
+      () => { },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteLocation(id: string) {
+    this.dbService.currentStore = this.USERSTORE;
+    this.dbService.delete(id).then(
+      () => { },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  clearLocation() {
+    this.dbService.currentStore = this.USERSTORE;
+    this.dbService.clear().then(
+      () => { },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
 }

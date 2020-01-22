@@ -69,19 +69,19 @@ export class MeteoActuelleComponent implements OnInit {
    }
 
    ngOnInit() {
-      //creation de la carte 
-      this.myMap = this.map.creerCarte(this.choiceLoc);
-      //initialisation du marqueur
-      this.marker = this.map.putMarker(this.myMap, this.choiceLoc);
-      //selectionner un lieu sur la carte
-      this.myMap.on('click', (e) => {
-         this.map.obtenirPosition(e, this.marker, this.myMap).then(location => {
-            this.choiceLoc = location;
-         });
-      });
-      setInterval(() => {
-         this.obtenirMeteo(this.location)
-      }, 15 * 60 * 1000)
+      // //creation de la carte 
+      // this.myMap = this.map.creerCarte(this.choiceLoc);
+      // //initialisation du marqueur
+      // this.marker = this.map.putMarker(this.myMap, this.choiceLoc);
+      // //selectionner un lieu sur la carte
+      // this.myMap.on('click', (e) => {
+      //    this.map.obtenirPosition(e, this.marker, this.myMap).then(location => {
+      //       this.choiceLoc = location;
+      //    });
+      // });
+      // setInterval(() => {
+      //    this.obtenirMeteo(this.location)
+      // }, 15 * 60 * 1000)
    }
 
 
@@ -117,7 +117,7 @@ export class MeteoActuelleComponent implements OnInit {
       private databaseLocationService: DatabaseLocationService,
       private map:MapService, public matDialog: MatDialog) {
 
-
+      console.log(this.databaseLocationService);
       this.locations = new Array<Location>();
       this.databaseLocationService.getAll().then(data => {
          this.locations = Array();
@@ -211,6 +211,7 @@ export class MeteoActuelleComponent implements OnInit {
       this.weath.getForecastHourlyByLocation(location)
          .then(
             (hourly) => {
+               console.log(hourly);
                this.hourly = hourly;
                this.setImageByTemp();
             },

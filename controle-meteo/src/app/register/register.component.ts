@@ -39,6 +39,10 @@ export class RegisterComponent implements OnInit {
       this.uploader.response.subscribe(res => this.response = res);
    }
 
+   goToLogin() {
+      this.router.navigate(['controle-meteo/signIn'])
+   }
+
    registerForm: FormGroup;
 
    ngOnInit() {

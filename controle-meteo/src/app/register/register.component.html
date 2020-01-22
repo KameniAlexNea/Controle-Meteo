@@ -1,7 +1,8 @@
 <div class="row" style="margin-top: 50px;">
     <div class="col-lg-2"></div>
     <div class=" col-lg-8 container-full justify-content-center v-center">
-        <div class="jumbotron">
+        <div class="jumbotron"
+            style="background-image: url('./../assets/img/bgImage.jpeg'); background-repeat: no-repeat; background-size: cover;">
             <div class="row">
                 <div class=" text-center col-lg-12">
                     <h2>Register To Controle Meteo</h2>
@@ -87,10 +88,17 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">
+                        <button class="btn btn-primary" type="submit" [disabled]="registerForm.valid">
                             Creer mon compte
                         </button>
                     </form>
+                    <div class="row">
+                        <div class="col">
+                            <h6>J'ai déjà un compte <button class="btn btn-primary" (click)="goToLogin()">
+                                S'identifier
+                            </button></h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
