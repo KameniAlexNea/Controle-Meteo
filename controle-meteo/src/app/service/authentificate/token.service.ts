@@ -9,7 +9,14 @@ export class TokenService {
 
   setToken() {
     let tokenValue = (new Date()).getTime();
-    let token = { "token": tokenValue };
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token', JSON.stringify(tokenValue));
+  }
+
+  getToken() {
+    return localStorage.getItem('token')
+  }
+
+  clearToken() {
+    localStorage.removeItem('token')
   }
 }

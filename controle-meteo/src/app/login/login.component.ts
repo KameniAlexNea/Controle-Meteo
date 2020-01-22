@@ -1,7 +1,7 @@
 import { OnInit, Component } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { DatabaseUserService } from '../service/database/database-user.service';
 import { AuthenticationService } from '../service/authentificate/authentication.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +15,9 @@ export class LoginComponent implements OnInit {
    submitted = false;
    returnUrl: string;
    error: string;
-   constructor(private userService: DatabaseUserService, private authS:AuthenticationService) { }
+   constructor(private authS: AuthenticationService, private router: Router) {
+      this.testAuthentification()
+   }
 
    ngOnInit() {
       this.initForm();
@@ -32,16 +34,19 @@ export class LoginComponent implements OnInit {
       this.submitted = true;
       const formValue = this.loginForm.value;
       console.log(formValue['email'], formValue['password']);
-      this.userService.isValid(formValue['email'], formValue['password']).then(
-         (res) => {
-            this.loading = res as boolean;
-            console.log(res as boolean);
-         }
-      ).catch((err) => {
-         console.log(err)
-         this.loginForm.setErrors(err)
-      });
-      //this.authentification.emit(this.isAuth);
+      this.authS.login(formValue['email'], formValue['password'])
+      this.testAuthentification()
+   }
+
+   testAuthentification() {
+      if (this.authS.isAuthenticate) {
+         if (this.submitted)
+            this.error = ""
+         this.router.navigate(['controle-meteo/'])
+      } else {
+         if (this.submitted)
+            this.error = "Mail ou Mot de passe Incorrect";
+      }
    }
 
    revert() {
