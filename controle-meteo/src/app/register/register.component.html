@@ -82,13 +82,12 @@
                                                     <label class="form-check-label" for="female"> Female</label>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit" [disabled]="registerForm.valid">
+                        <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">
                             Creer mon compte
                         </button>
                     </form>

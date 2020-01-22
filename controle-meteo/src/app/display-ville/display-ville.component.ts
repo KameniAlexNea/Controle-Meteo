@@ -18,21 +18,23 @@ export class DisplayVilleComponent implements OnInit {
    location: Location
 
    @Input()
-   id:Number
+   id: Number
 
    @Output()
    prevision = new EventEmitter<Number>();
 
    updateValue() {
       this.prevision.emit(this.id);
+      console.log('updateValue')
    }
 
    constructor(private weath: WeatherService) {
-
+      
    }
 
    ngOnInit() {
-      this.weath.getWeatherByLocation(this.location).then((weather) => {
+      console.log(this.location)
+      this.weath.getWeatherByLocation(this.location).then(async (weather) => {
          this.weather = weather
          this.setImageByTemp()
       }, err => {

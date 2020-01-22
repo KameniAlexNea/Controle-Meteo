@@ -3,7 +3,7 @@
 </div>
 <div class="container">
     <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card" style="border-radius: 10px;">
                 <div class="card-body">
                     <div class="container-fluid">
@@ -67,47 +67,72 @@
                                     <div class="tab-pane fade show active" id="heure" role="tabpanel"
                                         aria-labelledby="temp-tab">
                                         <div class="row">
-                                            <span *ngFor="let dayInf of hourly">
-                                                <app-display-weather [typeW]="'heure'" [weather]="dayInf">
+                                            <span *ngFor="let heure of hourly">
+                                                <app-display-weather [typeW]="'heure'" [weather]="heure">
                                                 </app-display-weather>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade show" id="jour" role="tabpanel"
                                         aria-labelledby="temp-tab">
-                                        <div class="row" *ngFor="let dayInf of daily">
-                                            <!-- <span class="col" > -->
-                                            <div class="col">
-                                                <app-display-weather [typeW]="'jour'" [weather]="dayInf">
+                                        <div class="row">
+                                            <span *ngFor="let jour of daily">
+                                                <app-display-weather [typeW]="'jour'" [weather]="jour">
                                                 </app-display-weather>
-                                            </div>
-                                            <!-- </span> -->
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mx-auto text-center"
-            style="margin-left: 10px; background-color: black; width: 100%!important;">
-            <div class="container-fluid">
-                <div class="row" style="width: 100%!important;">
-                    <div class="col-md-12" *ngFor="let loc of locations; let i = index;" [attr.data-index]="i">
-                        <div style="height: 50px;">
+        <div class="col-md-3 justify-content-center text-center v-center">
+            <div class="container-full">
+                <div class="row justify-content-center text-center v-center">
+                    <!-- <div class="row">
+                        <span class="row" *ngFor="let loc of locations; let i = index;" [attr.data-index]="i">
                             <app-display-ville id="{{i}}" (prevision)="supprimerVille($event)" [location]="loc"
                                 [id]="i"></app-display-ville>
-                        </div>
+                        </span>
+                    </div> -->
+                    <div class="row" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+                        <table style="margin-top: 10px;" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Ville</th>
+                                    <th scope="col">Choix</th>
+                                    <th scope="col">Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let city of locations; let i = index" [attr.data-index]="i">
+                                    <th scope="row">{{ i }}</th>
+                                    <td><small>{{city.city }}, {{city.country}}</small></td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input name="villeCheck" class="form-check-input" value="{{i}}" id="{{i}}"
+                                                type="radio" (change)="choixVille($event)" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <button class="btn btn-outline-danger" id="{{i}}"
+                                                (click)="supprimerVille($event)">Supprimer</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="row" style="width: 100%!important; margin-top: 10px;">
-                        <div class="col container-fluid"
-                            style="width: 100%!important; position: relative; bottom: 0px;">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col container-full">
                             <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal"
-                                data-target="#myModal" style="width: 100%!important;">
-                                <small>ajouter un emplacement</small>
+                                data-target="#myModal">
+                                <small class="container-full">ajouter un emplacement</small>
                             </button>
                         </div>
                         <!-- The Modal -->
@@ -140,7 +165,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

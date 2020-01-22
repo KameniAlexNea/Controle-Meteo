@@ -17,10 +17,10 @@ export class MeteoActuelleComponent implements OnInit {
 
    temperature: Number = 25; // Afficher la temperature en haut, facilite les modif
    tempUnit: boolean = true // true pour °C et false pour °F
-   actualDate: string // La date actuelle
+   actualDate: string = "" // La date actuelle
    selectedCity: number = 0 // Id de la ville selectionnée
-   imgBg: String; // Image à côté de la température
-   locations: Array<Location>
+   imgBg: string = ""; // Image à côté de la température
+   locations: Array<Location> = new Array<Location>()
    choiceLoc: Location = new Location();
    location: Location = new Location();
 
@@ -107,6 +107,7 @@ export class MeteoActuelleComponent implements OnInit {
             this.castLocationFromDb(obj, tempL);
             this.locations.push(tempL);
          }
+         console.log(this.locations);
          if (this.locations.length > 0) {
             this.location = this.locations[0];
             this.choiceLoc = this.locations[0];

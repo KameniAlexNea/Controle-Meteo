@@ -9,7 +9,7 @@ const convert: number = 273.15;
   providedIn: 'root'
 })
 export class WeatherService {
-  private apiKey: string = "5a0ec580cc17b68d52de66ee2ac21262";
+  private apiKey: string = "960a159c2565ea677b2abe0761f6f6dd";
   //"YOUR_API_KEY";
   private url: string = "https://api.openweathermap.org/data/2.5/";
 
@@ -213,6 +213,7 @@ export class WeatherService {
 
 
   public remplirWeather(data, meteo: Weather) {
+    
     //les données sont de la forme : main.temp ; main.humidity ; clouds.all ; weather.description
     meteo.humidity = data.main.humidity;
     meteo.temperature = data.main.temp - convert;
